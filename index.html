@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Images Generator</title>
+</head>
+<body>
+    <h1>Random Image Generator</h1>
+    <div id="random-image-container"></div>
+    <button id="random-image-button">Click Here</button>
+
+
+    <script>
+        let randomImageUrl="https://dog.ceo/api/breeds/image/random";
+
+        async function randomDogImage(){
+            try{
+                let response=await fetch(randomImageUrl);
+                let data=await response.json();
+                displayRandomImage(data.message);
+            }
+            catch(error){
+                console.error("Fetching api is not correct",error);
+
+            }
+        }
+
+
+
+        function displayRandomImage(imageUrl){
+            let container=document.getElementById("random-image-container");
+            container.innerHTML='';
+            let image=document.createElement("img");
+            image.src=imageUrl;
+            image.alt="random Image";
+            image.width=400;
+            container.appendChild(image);
+        }
+
+        document.getElementById("random-image-button").addEventListener("click",randomDogImage);
+
+        randomDogImage();
+
+
+    </script>
+</body>
+</html>
